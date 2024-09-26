@@ -14,15 +14,45 @@
 /* Dark background */
 
 body {
-    background-color: #000;
+    background: rgb(52,0,0);
+    background: linear-gradient(333deg, rgba(52,0,0,1) 0%, rgba(0,0,0,1) 33%, rgba(0,9,43,1) 97%);    color: #FFFFFF;
+}
+
+/* Animations */
+@keyframes fadeLeft {
+    0%{
+        transform: translateX(200%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
     
-    color: #FFFFFF;
+}
+@keyframes fadeRight {
+    0%{
+        transform: translateX(-80%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+    
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
 }
 
 /* Navigation bar */
 #top-nav {
     width: 100%;
-    background-color: #101010;
+    background: rgb(0,10,48);
+    background: linear-gradient(333deg, rgba(0,10,48,1) 0%, rgba(0,0,0,1) 81%, rgba(52,0,0,1) 100%);
     display: flex;
     align-items: center;
     padding: 15px 50px;
@@ -30,6 +60,7 @@ body {
     position: fixed;
     top:0;
     z-index: 10;
+    animation: fadeIn 2s ease-in;
 
     .nav-title{
         margin: 0;
@@ -60,93 +91,41 @@ body {
         transform: scale(1.1);
     }
 }
-
-.wrapper{
-    display: inline-flex;
-    .static-text{
-        color: #FFF;
-        font-size: 1.5rem;
-        font-weight: 400;
-    }
-    .dynamic-text{
-        margin-left: 15px;
-        line-height: 86px;
-        height: 65px;
-        overflow: hidden;
-
-        li{
-            color:tomato;
-            list-style: none;
-            font-size: 38px;
-            position: relative;
-            top:0;
-            animation:slide 16s steps(4) 1s infinite;
-
-        }
-
-
-        li span::after{
-            content: "";
-            position: absolute;
-            left: 0;
-            background: #000;
-            height: 100%;
-            width: 100%;
-            border-left: 2px solid tomato;
-            animation: typing 4s steps(30) 1s infinite;
-        }
-    }
+/* Progress Bar */
+#progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%; /* Initial width (starts empty) */
+    height: 5px;
+    background-color: #FF6F61; /* Customize the color */
+    z-index: 9999; /* Ensures it stays on top of other elements */
+    transition: width 0.25s ease; /* Smooth animation */
 }
-@keyframes typing {
-    100%{
-        left: 110%;
-        margin: 0 -30px 0 30px;
-    }
-    
-}
-@keyframes slide {
-    100%{
-        top:-360px;
-    }
-    
-}
+
 
 
 
 /* Full-screen section */
 #home {
     min-height: 100vh;
-    background: #000;
+    background: rgb(0,10,48);
+    background: linear-gradient(333deg, rgba(0,10,48,1) 0%, rgba(0,0,0,1) 81%, rgba(52,0,0,1) 100%);
     padding: 20px;
     border-bottom:solid #101010;
 }
-@keyframes fadein {
-    0%{
-        transform: translateX(200%);
-    }
-    100%{
-        transform: translateX(0%);
-    }
-    
-}
-@keyframes fadeout {
-    0%{
-        transform: translateX(-80%);
-    }
-    100%{
-        transform: translateX(0%);
-    }
-    
-}
+
 /* Customize image */
 #home img {
     
-    max-width: 50%;
+    min-width: 50%;
     transition: all 0.5s ease-in-out; /* Smooth transition for image resizing */
-    animation: fadein 2s ease-in-out 0.5s backwards;
+    animation: fadeLeft 2s ease-in-out 0.5s backwards;
+    border-radius: 20%;
+    border-bottom: solid 10px tomato;
 }
 #home .my-name{
-    animation: fadeout 2s ease-in-out 0.5s backwards;
+    animation: fadeRight 2s ease-in-out 0.5s backwards;
 }
 #home img:hover {
     transform: scale(1.05);
@@ -154,6 +133,9 @@ body {
     box-shadow: #ff634755 0 0 10px;
     border-radius: 10%;
 
+}
+.typewrite{
+    font-size: max(25px,2.5vw);
 }
 
 /* Customize text */
@@ -197,6 +179,7 @@ body {
 
 }
 .about-content{
+
     .details{
         display: grid;
         grid-template-columns: repeat(3,1fr);
@@ -215,14 +198,25 @@ body {
             }
             padding: 10px 20px;
             align-content: center;
-            transition:border,transform 0.5s;
+            border-left: solid tomato 1px;
+            
         }
         .details-list:hover{
             border: solid 1px tomato;
             border-radius: 20px;
+            transition: transform 0.5s;
             transform: scale(1.05);
         }
     }
+}
+.details-list{
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-200px); /* Slightly offset for effect */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.details-list.fade-in {
+    opacity: 1; /* Fully visible */
+    transform: translateX(0); /* Bring to original position */
 }
 
 .experience-content{
@@ -253,7 +247,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0.1em;
+    height: 0.05em;
     background-color: tomato;
     opacity: 0;
     transition: opacity 300ms, transform 300ms;
@@ -284,11 +278,14 @@ body {
     height: 80px;
     overflow: hidden;
     border-radius: 15px;
-    transition: transform 0.3s ease;
+    transition: transform 0.1s ease;
 }
 .skill-division{
     display: grid;
     grid-template-columns: repeat(2, minmax(240px, 1fr));
+    opacity: 0; /* Initially hidden */
+    transform: translateY(200px); /* Slightly offset for effect */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
     
     .frontend,.backend,.others,.programming{
         h5{
@@ -296,16 +293,18 @@ body {
         }
         border: solid tomato;
         color: tomato;
-        background-color: #101010;
+        background: rgb(52,0,0);
+        background: linear-gradient(333deg, rgba(52,0,0,1) 0%, rgba(0,0,0,1) 33%, rgba(0,9,43,1) 97%);    color: #FFFFFF;
         border-radius: 20px;
         min-height: 200px;
-        padding:20px 30px;
+        padding:15px 10px;
         margin: 20px 40px;
-        transition: 1s;
+        transition: 0.3s;
+        
     }
     .frontend:hover,.backend:hover,.others:hover,.programming:hover{
         transform: scale(1.05);
-        box-shadow: #ff634755 0 0 30px;
+        box-shadow: #ff634755 0 0 15px;
 
     }
 
@@ -317,9 +316,10 @@ body {
 
 /* Skill Image */
 .skill-image {
-    width: 100%;
+    width: 80%;
     object-fit: contain;
     border-radius: 15px;
+    margin:0 10%;
     transition: transform 0.3s ease;
 }
 
@@ -333,9 +333,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark transparent overlay */
+    width: 90%;
+    height: 90%;
+    margin: 0 5%;
+    background-color: rgba(0, 0, 10, 0.7); /* Dark transparent overlay */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -352,14 +353,18 @@ body {
 /* Skill Rating Text */
 .skill-rating {
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     text-align: center;
+}
+.skill-division.fade-in {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Bring to original position */
 }
 
 /* Projects Section */
 #projects-section {
-    background-color: #000;
+    background-color: #0000;
     width: 100%;
     padding: 80px 0;
 }
@@ -375,11 +380,21 @@ body {
     overflow: hidden;
     border-radius: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #101010;
+    background: rgb(0,10,48);
+    background: linear-gradient(333deg, rgba(0,10,48,1) 0%, rgba(0,0,0,1) 81%, rgba(52,0,0,1) 100%);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     text-decoration: none; /* Remove underline from link */
     cursor: pointer;
     padding:10px 15px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(200px); /* Slightly offset for effect */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+}
+/* Fade-in Animation */
+.project-card.fade-in {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Bring to original position */
 }
 
 /* Project Image */
@@ -450,7 +465,7 @@ body {
 
 /* Contact Section */
 #contact-section {
-    background-color: #000;
+    background-color: #0000;
     padding: 80px 0;
     width: 100%;
     color: white;
@@ -490,7 +505,7 @@ body {
 .form-control {
     padding: 10px;
     font-size: 1rem;
-    background-color: #101010;
+    background-color: #000410;
     color: white;
     border: 2px solid #FF6F61;
     border-radius: 5px;
@@ -540,7 +555,9 @@ body {
 
 /* Footer Section */
 #footer-section {
-    background-color: #101010;
+    background: rgb(0,10,48);
+    background: linear-gradient(333deg, rgba(0,10,48,1) 0%, rgba(0,0,0,1) 81%, rgba(52,0,0,1) 100%);
+
     padding: 30px 0;
     width: 100%;
     color: white;
