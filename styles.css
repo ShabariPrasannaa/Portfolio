@@ -473,7 +473,7 @@ body {
 
 .contact-heading {
     text-align: center;
-    font-size: 3.5rem;
+    font-size: max(30px,4vw);
     margin-bottom: 50px;
     font-weight: 400;
     border-bottom: 1px solid #FF6F61;
