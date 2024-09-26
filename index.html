@@ -21,6 +21,8 @@
             <li class="nav-item"><a href="#contact-section" class="nav-link ">Contact</a></li>
         </ul>
     </nav>
+    <!-- Progress bar -->
+    <div id="progressBar"></div>
 
     <!-- First Division: Full-Screen Photo and Name/Job Title -->
     <section id="home" class="d-flex align-items-center">
@@ -36,15 +38,11 @@
                 <div class="my-name col-md-6 text-center text-md-left">
                     <h3>Hi, I am</h3>
                     <h1 class=""><span class="name u">Shabari Prasannaa D</span></h1>
-                    <div class="wrapper">
-                        <div class="static-text">I am a </div>
-                        <ul class="dynamic-text">
-                            <li><span>Web Developer</span></li>
-                            <li><span>Java Developer</span></li>
-                            <li><span>Python Developer</span></li>
-                            <li><span>Full Stack Developer</span></li>
-                        </ul>
-                    </div>
+                    <h1>
+                        <a href="" class="typewrite text-white" data-period="2000" data-type='[ "Full Stack Developer", "Java Developer", "Python Developer", "Web Developer" ]'>
+                          <span class="wrap"></span>
+                        </a>
+                    </h1>
                     <br>
                     <a href="https://drive.google.com/file/d/1MlbnU0AshEaX9rTLd-w9EiawMAz7vSfR/view?usp=drive_link"><button class="btn btn-outline-danger" role="button">Check Resume</button></a>
                 </div>
@@ -324,7 +322,7 @@
 
 
         <!-- Project 1 -->
-        <div class="projects-list mt-3 d-flex flex-wrap justify-content-center">
+        <div class="projects-list mt-3 d-flex flex-wrap justify-content-center" loading="lazy">
             <a href="https://shabariprasannaa.github.io/Online-Compiler/" target="_blank" class="project-card">
                 <img src="Img/onlineCompiler.png" alt="Project 1" class="project-image">
                 <h3 class="text-white text-center">Online-Compiler</h3>
